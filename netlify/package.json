@@ -1,0 +1,16 @@
+{
+  "name": "netlify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "dev": "./node_modules/.bin/netlify-lambda serve ./src",
+    "build": "./node_modules/.bin/netlify-lambda build ./src"
+  },
+  "author": "Guilherme Joviniano de Sousa",
+  "license": "ISC",
+  "dependencies": {
+    "netlify-lambda": "^2.0.15",
+    "serverless-http": "^3.0.2"
+  }
+}

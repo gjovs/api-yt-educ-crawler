@@ -1,0 +1,20 @@
+{
+  "name": "Pandora",
+  "version": "1.0.0",
+  "description": "service to handler the youtube educ scrappler videos",
+  "main": "index.js",
+  "author": "Guilherme Joviniano de Sousa & Pedro Vieira",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "himalaya": "^1.1.0",
+    "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "sucrase": "^3.27.0"
+  }
+}
