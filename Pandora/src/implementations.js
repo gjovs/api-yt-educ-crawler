@@ -34,6 +34,14 @@ class Pandora {
 
     const initYtData = JSON.parse(script)
 
+    const {
+      contents
+    } = initYtData;
+
+    if (!contents) {
+      return false
+    }
+
     const tabs = initYtData.contents.twoColumnBrowseResultsRenderer.tabs
 
     const expandableTabRenderer = tabs.filter(({
@@ -55,6 +63,10 @@ class Pandora {
     this.searchTerm = searchTerm;
     await this.getContent()
 
+    if (!this.content) {
+      return false
+    }
+
 
     const playlists = this.content.map((e) => {
       if (e.playlistRenderer) {
@@ -73,6 +85,9 @@ class Pandora {
     this.searchTerm = searchTerm;
     await this.getContent()
 
+    if (!this.content) {
+      return false
+    }
 
 
     const videos = this.content.map((e) => {
