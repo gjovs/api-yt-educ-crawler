@@ -1,4 +1,4 @@
-import Pandora from '../services/pandora';
+import Pandora from '../services';
 
 class SearchController {
   async index(req, res) {

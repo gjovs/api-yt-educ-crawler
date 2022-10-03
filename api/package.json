@@ -3,10 +3,16 @@
     "cors": "^2.8.5",
     "eslint": "^7.32.0 || ^8.2.0",
     "express": "^4.18.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "himalaya": "^1.1.0",
+    "netlify-lambda": "^2.0.15",
+    "serverless-http": "^3.0.2"
   },
   "scripts": {
-    "dev": "nodemon ./src/v1/server.js"
+    "dev": "nodemon ./src/v1/server.js",
+    "build": "./node_modules/.bin/netlify-lambda build ./src/v1"
   },
   "devDependencies": {
     "eslint-config-airbnb-base": "^15.0.0",
