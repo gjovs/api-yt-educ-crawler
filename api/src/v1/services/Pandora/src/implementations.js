@@ -50,9 +50,18 @@ class Pandora {
       if (expandableTabRenderer) return expandableTabRenderer
     })[0].expandableTabRenderer.content.sectionListRenderer.contents
 
-    const contentRenderer = expandableTabRenderer.map(({
-      itemSectionRenderer
-    }) => itemSectionRenderer.contents[0])
+    
+    let contentRenderer = [];
+
+    expandableTabRenderer.forEach((content) => {
+      const { itemSectionRenderer } = content
+
+      if (!itemSectionRenderer) return;
+
+      const { contents } = itemSectionRenderer;
+
+      contentRenderer.push(contents[0])
+    })
 
     this.content = contentRenderer
   }

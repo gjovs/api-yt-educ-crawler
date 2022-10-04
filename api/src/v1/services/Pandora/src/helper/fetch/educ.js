@@ -20,6 +20,7 @@ const config = {
 
 export default async (searchTerm) => {
   const url = addSearchQuery(searchTerm)
+  console.log(url);
   const response = await axios.get(url, config)
     return response.data
 }
