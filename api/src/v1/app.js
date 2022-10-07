@@ -15,7 +15,7 @@ class App {
   }
 
   routes() {
-    this.app.use("/.netlify/functions/api", routes);
+    this.app.use("", routes);
   }
 }
 

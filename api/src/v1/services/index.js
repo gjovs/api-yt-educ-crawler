@@ -1,3 +1,7 @@
-import Pandora from './Pandora/src/index';
+import Pandora from './Pandora/';
+import Eros from './Eros'
 // utilizacao local do service
-export default Pandora;
+export {
+  Pandora,
+  Eros
+};
