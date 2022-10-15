@@ -1,4 +1,3 @@
-import ytlist from 'youtube-playlist';
 
 import {
   youtubeEducFetch
