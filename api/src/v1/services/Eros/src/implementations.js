@@ -1,10 +1,10 @@
 import contentFetch from "./helpers/contentFetch";
-import fs from 'fs'
-import path from 'path'
+
+import getInitYtData from "../../helpers/getInitYtData";
+
 class Eros {
   rankingByRelevance(contents = []) {
     // scraper the videos and playlists links
-
 
   }
   async rankingByViews(contents = []) {
@@ -12,9 +12,12 @@ class Eros {
 
     const contentsHTML = await Promise.all(contents.map(async (content) => await contentFetch(content)))
 
-    fs.writeFileSync(path.resolve(__dirname, 'teste.html'), contentsHTML[0], (err) => {
-      console.log(`fodase`)
-    })
+    const tabs = contentsHTML.map((content) => getInitYtData(content).contents.twoColumnBrowseResultsRenderer.tabs);
+    const itemsSection = tabs.map((tab) => tab[0].tabRenderer.content.sectionListRenderer.contents)
+    const content = itemsSection.map((item) => item[0].itemSectionRenderer.contents[0].playlistVideoListRenderer)
+
+
+    console.log(content);
 
     return false
   }

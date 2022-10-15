@@ -1,3 +1,5 @@
+import ytlist from 'youtube-playlist';
+
 import {
   youtubeEducFetch
 } from './helper'
@@ -5,6 +7,10 @@ import {
 import {
   urls
 } from './helper'
+
+import axios from 'axios';
+
+import getInitYtData from '../../helpers/getInitYtData'
 
 const {
   ytPlaylistBaseUrl,
@@ -20,19 +26,16 @@ class Pandora {
   constructor() {
     this.searchTerm;
     this.content;
+    this.initData;
   }
 
 
   async getContent() {
     const html = await youtubeEducFetch(this.searchTerm)
 
-    const json = parse(html)
-
-    const body = json[1].children[1].children
-
-    const script = body.filter((el) => el.tagName === 'script')[13].children[0].content.substring(19).slice(0, -1)
-
-    const initYtData = JSON.parse(script)
+    const initYtData = getInitYtData(html);
+    
+    this.initData = initYtData;
 
     const {
       contents
@@ -50,7 +53,7 @@ class Pandora {
       if (expandableTabRenderer) return expandableTabRenderer
     })[0].expandableTabRenderer.content.sectionListRenderer.contents
 
-    
+
     let contentRenderer = [];
 
     expandableTabRenderer.forEach((content) => {
@@ -109,8 +112,22 @@ class Pandora {
     return videos
   }
 
+  async details(searchTerm) {
+    const playlists = await this.getPlaylists(searchTerm)
+    
+    const response = await Promise.all(playlists.map(async (url) => {
+      const { data } = await axios(url)
+      const initData = getInitYtData(data) 
+      const videos = initData.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].playlistVideoListRenderer.contents.map(({ playlistVideoRenderer }) => {
+        if (playlistVideoRenderer) return playlistVideoRenderer.videoId
+      }).slice(0, -1)
+      return { url, videos }
+    }))
+
+    return response;
+  }
+
 
 }
-
 
 export default new Pandora();
