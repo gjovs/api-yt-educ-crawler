@@ -10,12 +10,30 @@ class SearchController {
       q,
     } = req.query;
 
+    if (!q) {
+      return res.status(402).json({
+        error: true,
+        code: 402,
+        message: ['Missing the query paramter']
+      })
+    }
+
     const playlists = await Pandora.getPlaylists(q);
     const videos = await Pandora.getVideos(q);
-    return res.status(200).json(createResponse(200, {
-      playlists,
-      videos
-    }, false));
+
+    if (!playlists && !videos) {
+      return res.status(400).json({
+        error: true,
+        code: 400,
+        message: ['This search parameter do not associated with any educated content']
+      })
+    }
+
+    return res.status(200).json({
+      error: false,
+      code: 200,
+      data: { playlists, videos }
+    });
 
   }
 
@@ -24,9 +42,21 @@ class SearchController {
       q,
     } = req.query;
 
+    if (!q) {
+      return res.status(402).json({
+        error: true,
+        code: 402,
+        message: ['Missing the query paramter']
+      })
+    }
+
     const response = await Pandora.details(q);
 
-    return res.status(200).json(response)
+    return res.status(200).json({
+      error: false,
+      code: 200,
+      data: response
+    })
   }
 
 

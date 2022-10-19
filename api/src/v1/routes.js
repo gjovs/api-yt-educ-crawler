@@ -16,7 +16,7 @@ router.get(`/${app.currentVersion}/search/`, SearchController.index);
 router.get(`/${app.currentVersion}/search/details`, SearchController.detail);
 
 
-router.post(`/${app.currentVersion}/ranking/`, RankingController.index);
+router.post(`/${app.currentVersion}/ranking/`, RankingController.index); // in progress
 
 
 export default router;
